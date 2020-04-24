@@ -85,4 +85,17 @@ router.get('/dark-sky', async function(req, res) {
     }
 });
 
+router.get('/current-geo', async function(req, res) {
+    try {
+        const axiosResponse = await axios('http://ip-api.com/json');
+        res.json({
+            ...axiosResponse.data
+        });
+    } catch (ex){
+        res.status(500).send({
+            message: 'Could not process request.'
+        });
+    }
+});
+
 module.exports = router;
