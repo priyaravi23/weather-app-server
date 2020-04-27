@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "GOOGLE_API_KEY=AIzaSyCnTRM0ajhl7UgPuOwSCoId_gF84yzGNm0 DARK_SKY_API_KEY=19096b6e4c1caaa925d6e082ca534dcd nodemon ./bin/www",
+    "start": "GOOGLE_API_KEY=AIzaSyCnTRM0ajhl7UgPuOwSCoId_gF84yzGNm0 DARK_SKY_API_KEY=19096b6e4c1caaa925d6e082ca534dcd IP_GEOLOCATOPN_API_KEY=4b718753816b42318615774948f189a0 nodemon ./bin/www",
     "devserver": "node ./bin/www"
   },
   "engines": {

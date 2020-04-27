@@ -5,11 +5,13 @@ var router = express.Router();
 
 const GOOGLE_URL = 'https://maps.googleapis.com/maps/api/geocode/json';
 const GOOGLE_PLACES_URL = `https://maps.googleapis.com/maps/api/place/autocomplete/json`;
+
 console.log('Google API Key: ', process.env.GOOGLE_API_KEY);
 console.log('Dark Sky API Key ', process.env.DARK_SKY_API_KEY);
+console.log('IP Geolocation API Key', process.env.IP_GEOLOCATOPN_API_KEY);
 
-const DARK_SKY_URL = 'https://api.darksky.net/forecast/19096b6e4c1caaa925d6e082ca534dcd';
-
+const DARK_SKY_URL = 'https://api.darksky.net/forecast';
+const IP_GEOLOCATOPN_URL = 'https://api.ipgeolocation.io';
 
 /* GET users listing. */
 router.get('/places', async function(req, res) {
@@ -74,7 +76,7 @@ router.get('/reverse-geo', async function(req, res, next) {
 router.get('/dark-sky', async function(req, res) {
     const {lat, lng} = req.query;
     try {
-        const axiosDarkSkyResponse = await axios(`${DARK_SKY_URL}/${lat},${lng}`);
+        const axiosDarkSkyResponse = await axios(`${DARK_SKY_URL}/${process.env.DARK_SKY_API_KEY}/${lat},${lng}`);
         res.json({
             ...axiosDarkSkyResponse.data
         });
@@ -86,8 +88,10 @@ router.get('/dark-sky', async function(req, res) {
 });
 
 router.get('/current-geo', async function(req, res) {
+    const {ip} = req.query;
+
     try {
-        const axiosResponse = await axios('http://ip-api.com/json');
+        const axiosResponse = await axios(`${IP_GEOLOCATOPN_URL}/ipgeo?apiKey=${process.env.IP_GEOLOCATOPN_API_KEY}&ip=${ip}`);
         res.json({
             ...axiosResponse.data
         });
